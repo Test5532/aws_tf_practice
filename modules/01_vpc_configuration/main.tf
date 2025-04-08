@@ -12,3 +12,18 @@ resource "aws_vpc" "vpc_new" {
     }
 
 }
+
+
+resource "aws_internet_gateway" "aws_internet_gateway" {
+    tags = {
+        Name = "igw_new"
+    }
+
+}
+
+resource "aws_internet_gateway_attachment" "igw_attach" {
+  internet_gateway_id = aws_internet_gateway.aws_internet_gateway.id
+  vpc_id = aws_vpc.vpc_new.id
+  depends_on = [aws_internet_gateway.aws_internet_gateway , aws_vpc.vpc_new]
+}
+
